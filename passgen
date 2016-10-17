@@ -19,14 +19,14 @@ print ("Password generator version 1.0")
 print ("Written by Andrea Luciano Damico and released under the MIT license.")
 print ("This program will generate a random, cryptographically secure password for use with local computer and web accounts.")
 while 1:
-	answer=raw_input("Would you like your password to be case-sensitive? (y/n) (Default:n)")
-	if answer == "y":
+	answer=raw_input("Would you like your password to be case-sensitive? (y/n) (Default:y)")
+	if answer == "y" or answer == "":
 		print ("The password will contain uppercase characters.")
 		alphabet = alphabetlower + alphabetUpper
 		answer =""
 		break
 		
-	elif answer == "n" or answer == "":
+	elif answer == "n":
 		print ("The password will NOT contain uppercase characters.")
 		alphabet = alphabetlower
 		answer = ""
@@ -35,14 +35,14 @@ while 1:
 		print ("Please only answer y or n.")
 
 while 1:
-	answer = raw_input("Would you like your password to contain numbers? (y/n) (Default:n)")
-	if answer == "y":
+	answer = raw_input("Would you like your password to contain numbers? (y/n) (Default:y)")
+	if answer == "y" or answer == "":
 		print ("The password will contain numbers.")
 		alphabet = alphabet + alphabetNumbers
 		answer =""
 		break
 		
-	elif answer == "n" or answer == "":
+	elif answer == "n":
 		print ("The password will NOT contain numbers.")
 		answer = ""
 		break
@@ -58,7 +58,7 @@ while 1:
 		break
 		
 	elif answer == "n" or answer == "":
-		print ("The password will NOT contain numbers.")
+		print ("The password will NOT contain special characters.")
 		answer = ""
 		break
 	else:
@@ -70,14 +70,18 @@ while 1:
 	if length == "":
 		length =int(16)
 		break
-	elif int(length) in range(4,256):
+	elif int(length) in range(4,7):
+		print ("Passwords under 8 characters are generally insecure, please consider generating a stronger password.")
+		length = int(length)
+		break
+	elif int(length) in range(8,256):
 		length = int(length)
 		break
 	else:
 		print ("Invalid length.")
 print "Your password will be",length,"characters long."
 random.seed(os.urandom(random.randint(1,65535)))
-for i in range (1,length):
+for i in range (0,length):
 	sys.stdout.write(random.choice(alphabet))
 print ""
 exit(0)
